@@ -1,14 +1,14 @@
-from .models import CustomUser
-from rest_framework import viewsets
-from rest_framework import permissions
-from backSchool.serializers import CustomUserSerializer
+from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import generics
+from rest_framework import permissions
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from .models import CustomUser
+from .serializers import CustomUserSerializer
+from rest_framework import status
 
 
-class CustomUserViewSet(viewsets.ModelViewSet):
+class CustomUserViewSet(APIView):
     """
     API endpoint that allows users to be viewed or edited.
     """
@@ -29,6 +29,10 @@ class AuthView(APIView):
         return Response(content)
 
 
-class CustomUserList(generics.ListCreateAPIView):
-    serializer_class = CustomUserSerializer
-    queryset = CustomUser.objects.all()
+class RegView(APIView):
+    def post(self, request, format='json'):
+        serializer = CustomUserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user:
+                return Response(serializer.data, status=status.HTTP_201_CREATED)

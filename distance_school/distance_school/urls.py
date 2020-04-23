@@ -1,4 +1,4 @@
-"""distanceSchool URL Configuration
+"""distance_school URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -13,18 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import include, path
-from rest_framework import routers
-from backSchool.views import CustomUserList, CustomUserViewSet
 from django.contrib import admin
-
-router = routers.DefaultRouter()
-router.register(r'users', CustomUserViewSet)
-
+from django.urls import path
+from distance_school.back_school.views import RegView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),
-    path('auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('reg/', CustomUserList.as_view(), name='custom_user_list'),
+    path('register/', RegView.as_view(), name='account-create'),
 ]
