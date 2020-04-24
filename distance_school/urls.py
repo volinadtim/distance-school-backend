@@ -21,3 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', RegView.as_view(), name='account-create'),
 ]
+
+urlpatterns = [path('api/', include(urlpatterns))]
