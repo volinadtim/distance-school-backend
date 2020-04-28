@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .serializers import UserSerializer
-from .models import User
+from .models import User, School
 
 
 class CustomUserAdmin(UserAdmin):
@@ -13,4 +13,10 @@ class CustomUserAdmin(UserAdmin):
                     'phone', 'avatar']
 
 
+class SchoolAdmin(admin.ModelAdmin):
+    model = School
+    list_display = ['full_name', 'short_name']
+
+
+admin.site.register(School, SchoolAdmin)
 admin.site.register(User, CustomUserAdmin)

@@ -30,6 +30,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # project apps
+    'accounts',
+    'schedule',
+    'lessons',
+    'tasks',
+
     # django apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,9 +47,6 @@ INSTALLED_APPS = [
     # 3rd party apps
     'rest_framework',
     'corsheaders',
-
-    # project apps
-    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -131,16 +134,23 @@ AUTH_USER_MODEL = 'accounts.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'accounts.backends.JWTAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+    'PAGE_SIZE': 30,
 }
 
 CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:4200',
     'http://localhost:4200'
 ]
+
+MEDIA_URL = '/media/'
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MEDIA_ROOT = os.path.join('media')
+
+STATIC_URL = '/static/'
